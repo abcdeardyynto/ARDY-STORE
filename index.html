@@ -359,33 +359,28 @@
                     <div class="payment-item"><span class="payment-name">QRIS (All E-Wallet)</span><span class="nominal-price">Otomatis</span></div>
                 </div>
             </div>
+       
+    <button type="button" class="btn-submit" onclick="kirimPesanan()">Beli Sekarang</button>
 
-            <button type="submit" class="btn-submit">Beli Sekarang</button>
+       <div id="qris-modal" style="display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center;">
+        <div style="background-color: #1a1a1e; padding: 25px; border-radius: 12px; max-width: 340px; width: 90%; text-align: center; border: 1px solid #ff4a11; box-shadow: 0 4px 20px rgba(255,74,17,0.4);">
+            <h3 style="color: white; margin-bottom: 10px;">🔴 PEMBAYARAN QRIS</h3>
+            <p style="color: #a3a3a3; font-size: 13px; margin-bottom: 15px;">Silakan scan dan bayar sesuai nominal paket. Setelah sukses, klik tombol di bawah untuk konfirmasi ke WA.</p>
+            
+            <img src="qris.jpg" alt="QRIS Ardi Store" style="width: 100%; border-radius: 8px; margin-bottom: 15px; background: white; padding: 5px;">
+            
+            <button id="btn-lanjut-wa" style="background-color: #25D366; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase;">Sudah Bayar, Kirim Pesanan</button>
         </div>
     </div>
-    <script>
-        // Efek Visual: Membuat pilihan nominal berubah warna saat diklik
-        const nominalItems = document.querySelectorAll('.nominal-item');
-        nominalItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // Hapus warna aktif dari semua pilihan
-                nominalItems.forEach(i => i.style.borderColor = '#3e3e42');
-                // Beri warna orange pada pilihan yang diklik
-                this.style.borderColor = '#ff4a11';
-                // Centang input radio di dalamnya
-                this.querySelector('input[type="radio"]').checked = true;
-            });
-        });
 
-        // Fungsi Utama saat tombol "Beli Sekarang" dipencet
-        function kirimPesanan() {
+           function kirimPesanan() {
             // 1. Ambil data Player ID
             const playerId = document.getElementById('player-id').value;
             
             // 2. Ambil data Nominal Diamond yang dipilih
             const pilihanDiamond = document.querySelector('input[name="diamond"]:checked');
 
-            // 3. Validasi (Cek apakah user sudah mengisi data dengan benar)
+            // 3. Validasi input
             if (!playerId) {
                 alert('Silakan masukkan Player ID Anda terlebih dahulu!');
                 return;
@@ -395,22 +390,29 @@
                 return;
             }
 
-            // 4. Atur nomor WhatsApp Anda di sini (Gunakan kode negara 62)
-            const nomorAdmin = "628xxxxxxxxxx"; 
+            // 4. Tampilkan Pop-Up QRIS
+            const modal = document.getElementById('qris-modal');
+            modal.style.display = 'flex';
 
-            // 5. Susun teks pesanan otomatisnya
-            const isiPesan = `Halo Ardi Store, saya mau top up:\n\n` +
-                             `🎮 *Game:* Free Fire\n` +
-                             `🆔 *Player ID:* ${playerId}\n` +
-                             `💎 *Paket:* ${pilihanDiamond.value}\n` +
-                             `💳 *Metode:* QRIS (All E-Wallet)\n\n` +
-                             `Mohon totalan dan instruksi pembayarannya ya min.`;
+            // 5. Ketika tombol di dalam Pop-up QRIS diklik, baris ini akan melempar data ke WhatsApp
+            document.getElementById('btn-lanjut-wa').onclick = function() {
+                const nomorAdmin = "628xxxxxxxxxx"; // GANTI DENGAN NOMOR WA ANDA
+                
+                const isiPesan = `Halo Ardi Store, saya sudah bayar via QRIS:\n\n` +
+                                 `🎮 *Game:* Free Fire\n` +
+                                 `🆔 *Player ID:* ${playerId}\n` +
+                                 `💎 *Paket:* ${pilihanDiamond.value}\n` +
+                                 `💳 *Metode:* QRIS (All E-Wallet)\n\n` +
+                                 `Berikut saya lampirkan bukti transfernya ya min.`;
 
-            // 6. Alihkan pembeli langsung membuka WhatsApp ke nomor Anda
-            const urlWhatsApp = `https://wa.me/${081235125412}?text=${encodeURIComponent(isiPesan)}`;
-            window.open(urlWhatsApp, '_blank');
+                const urlWhatsApp = `https://wa.me/${nomorAdmin}?text=${encodeURIComponent(isiPesan)}`;
+                
+                // Sembunyikan kembali pop-up dan buka WhatsApp
+                modal.style.display = 'none';
+                window.open(urlWhatsApp, '_blank');
+            };
         }
-    </script>
+
 
 </body>
 </html>
