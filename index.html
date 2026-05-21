@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Games & Pulsa - ARDI STORE</title>
+    <style>
+        /* --- RESET & GLOBAL STYLE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121214;
+            color: #ffffff;
+            padding-bottom: 50px;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            background-color: #1a1a1e;
+            padding: 15px 20px;
+            border-bottom: 2px solid #ff4a11;
+            margin-bottom: 30px;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4a11;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: #b3b3b3;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ff4a11;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+        }
+
+        /* --- KANAN / DETAIL GAME --- */
+        .game-info {
+            background-color: #1a1a1e;
+            padding: 25px;
+            border-radius: 12px;
+            height: fit-content;
+            text-align: center;
+            border: 1px solid #29292e;
+        }
+
+        .game-banner {
+            width: 100%;
+            max-width: 180px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        }
+
+        .game-info h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .game-info p {
+            font-size: 14px;
+            color: #a3a3a3;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* --- KIRI / FORM TOP UP --- */
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #1a1a1e;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #29292e;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #29292e;
+            padding-bottom: 10px;
+        }
+
+        .step-num {
+            background-color: #ff4a11;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .card-header h3 {
+            font-size: 18px;
+        }
+
+        /* Step 1: Input Data */
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #121214;
+            border: 1px solid #3e3e42;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #ff4a11;
+        }
+
+        /* Step 2: Grid Nominal */
+        .nominal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .nominal-item {
+            background-color: #121214;
+            border: 1px solid #3e3e42;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .nominal-item:hover {
+            border-color: #ff4a11;
+            transform: translateY(-2px);
+        }
+
+        .nominal-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .nominal-price {
+            font-size: 12px;
+            color: #ff4a11;
+        }
+
+        /* Step 3: Payment Method */
+        .payment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .payment-item {
+            background-color: #121214;
+            border: 1px solid #3e3e42;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .payment-item:hover {
+            border-color: #ff4a11;
+        }
+
+        .payment-name {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        /* Button Beli */
+        .btn-submit {
+            background-color: #ff4a11;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(255, 74, 17, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: #e03e0b;
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .game-info { text-align: left; display: flex; gap: 20px; align-items: center; }
+            .game-banner { max-width: 90px; margin-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">ARDI STORE</div>
+            <div class="nav-links">
+                <a href="#" class="active">Game</a>
+                <a href="#">Pulsa & Kuota</a>
+                <a href="#">Lacak Pesanan</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="game-info">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300&auto=format&fit=crop" alt="Free Fire" class="game-banner">
+            <div>
+                <h2>Free Fire</h2>
+                <p>Top up Diamond Free Fire murah dan cepat otomatis 24 Jam di ARDI STORE. Masukkan ID, pilih nominal, dan selesaikan pembayaran.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="card">
+                <div class="card-header"><div class="step-num">1</div><h3>Masukkan Player ID</h3></div>
+                <div class="input-group"><input type="number" placeholder="Contoh: 12345678" required></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><div class="step-num">2</div><h3>Pilih Nominal</h3></div>
+                 <div class="nominal-grid">
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="5 Diamond (Rp 1.000)" style="display:none;">
+            <span class="nominal-title">5 Diamond</span>
+            <span class="nominal-price">Rp 1.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="12 Diamond (Rp 2.000)" style="display:none;">
+            <span class="nominal-title">12 Diamond</span>
+            <span class="nominal-price">Rp 2.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="50 Diamond (Rp 8.000)" style="display:none;">
+            <span class="nominal-title">50 Diamond</span>
+            <span class="nominal-price">Rp 8.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="90 Diamond (Rp 14.000)" style="display:none;">
+            <span class="nominal-title">90 Diamond</span>
+            <span class="nominal-price">Rp 14.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="140 Diamond (Rp 20.000)" style="display:none;">
+            <span class="nominal-title">140 Diamond</span>
+            <span class="nominal-price">Rp 20.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="355 Diamond (Rp 50.000)" style="display:none;">
+            <span class="nominal-title">355 Diamond</span>
+            <span class="nominal-price">Rp 50.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="720 Diamond (Rp 100.000)" style="display:none;">
+            <span class="nominal-title">720 Diamond</span>
+            <span class="nominal-price">Rp 100.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="1.450 Diamond (Rp 200.000)" style="display:none;">
+            <span class="nominal-title">1.450 Diamond</span>
+            <span class="nominal-price">Rp 200.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="2.180 Diamond (Rp 300.000)" style="display:none;">
+            <span class="nominal-title">2.180 Diamond</span>
+            <span class="nominal-price">Rp 300.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="3.640 Diamond (Rp 500.000)" style="display:none;">
+            <span class="nominal-title">3.640 Diamond</span>
+            <span class="nominal-price">Rp 500.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="7.290 Diamond (Rp 1.000.000)" style="display:none;">
+            <span class="nominal-title">7.290 Diamond</span>
+            <span class="nominal-price">Rp 1.000.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="36.500 Diamond (Rp 5.000.000)" style="display:none;">
+            <span class="nominal-title">36.500 Diamond</span>
+            <span class="nominal-price">Rp 5.000.000</span>
+        </label>
+
+        <label class="nominal-item">
+            <input type="radio" name="diamond" value="73.100 Diamond (Rp 10.000.000)" style="display:none;">
+            <span class="nominal-title">73.100 Diamond</span>
+            <span class="nominal-price">Rp 10.000.000</span>
+        </label>
+    </div>
+
+            <div class="card">
+                <div class="card-header"><div class="step-num">3</div><h3>Metode Pembayaran</h3></div>
+                <div class="payment-list">
+                    <div class="payment-item"><span class="payment-name">QRIS (All E-Wallet)</span><span class="nominal-price">Otomatis</span></div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Beli Sekarang</button>
+        </div>
+    </div>
+    <script>
+        // Efek Visual: Membuat pilihan nominal berubah warna saat diklik
+        const nominalItems = document.querySelectorAll('.nominal-item');
+        nominalItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Hapus warna aktif dari semua pilihan
+                nominalItems.forEach(i => i.style.borderColor = '#3e3e42');
+                // Beri warna orange pada pilihan yang diklik
+                this.style.borderColor = '#ff4a11';
+                // Centang input radio di dalamnya
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+        });
+
+        // Fungsi Utama saat tombol "Beli Sekarang" dipencet
+        function kirimPesanan() {
+            // 1. Ambil data Player ID
+            const playerId = document.getElementById('player-id').value;
+            
+            // 2. Ambil data Nominal Diamond yang dipilih
+            const pilihanDiamond = document.querySelector('input[name="diamond"]:checked');
+
+            // 3. Validasi (Cek apakah user sudah mengisi data dengan benar)
+            if (!playerId) {
+                alert('Silakan masukkan Player ID Anda terlebih dahulu!');
+                return;
+            }
+            if (!pilihanDiamond) {
+                alert('Silakan pilih nominal Diamond terlebih dahulu!');
+                return;
+            }
+
+            // 4. Atur nomor WhatsApp Anda di sini (Gunakan kode negara 62)
+            const nomorAdmin = "628xxxxxxxxxx"; 
+
+            // 5. Susun teks pesanan otomatisnya
+            const isiPesan = `Halo Ardi Store, saya mau top up:\n\n` +
+                             `🎮 *Game:* Free Fire\n` +
+                             `🆔 *Player ID:* ${playerId}\n` +
+                             `💎 *Paket:* ${pilihanDiamond.value}\n` +
+                             `💳 *Metode:* QRIS (All E-Wallet)\n\n` +
+                             `Mohon totalan dan instruksi pembayarannya ya min.`;
+
+            // 6. Alihkan pembeli langsung membuka WhatsApp ke nomor Anda
+            const urlWhatsApp = `https://wa.me/${081235125412}?text=${encodeURIComponent(isiPesan)}`;
+            window.open(urlWhatsApp, '_blank');
+        }
+    </script>
+
+</body>
+</html>
+
+ <a href="https://wa.me/6281235125412?text=Halo%20Ardi%20Store,%20saya%20butuh%20bantuan%20mengenai%20top%20up" class="cs-floating" target="_blank" rel="noopener noreferrer">
+        <!-- Ikon Pesan Sederhana (Bisa diganti logo WA jika ada) -->
+        <svg viewBox="0 0 24 24" width="28" height ="28" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+        <span>CS Ardi Store</span>
+    </a>
+
+    <!-- CSS UNTUK TOMBOL MENGAMBANG -->
+    <style>
+        .cs-floating {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366; /* Warna Hijau khas WhatsApp */
+            color: white;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 9999; /* Memastikan tombol selalu di paling depan */
+            transition: 0.3s ease;
+        }
+
+        .cs-floating:hover {
+            background-color: #1ebd57;
+            transform: scale(1.05); /* Efek sedikit membesar saat disentuh */
+        }
+
+        /* Menghilangkan tulisan di HP agar tidak terlalu sempit, hanya sisa ikon saja */
+        @media (max-width: 480px) {
+            .cs-floating {
+                padding: 14px;
+                border-radius: 50%;
+                bottom: 20px;
+                right: 20px;
+            }
+            .cs-floating span {
+                display: none;
+            }
+        }
+    </style>
+
